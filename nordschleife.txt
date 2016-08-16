@@ -1,0 +1,37 @@
+0,500,T13
+500,1400,Hatzenbach
+1400,2000,Hocheichen
+2000,2400,Quiddelbacherhöhe
+2400,3400,Flugplatz
+3400,3740,Schwedenkreuz
+3740,4100,Aremberg
+4100,5050,Fuchsröhre
+5050,5600,Adenauer Forst
+5600,6300,Metzgesfeld
+6300,6850,Kallenhard
+6850,7200,Miss-Hit-Miss
+7200,7600,Wehrseifen
+7600,8050,Breitscheid
+8050,8400,Exmühle
+8400,8750,Lauda Links
+8750,9300,Bergwerk
+9300,10250,Kesselchen
+10250,10700,Klostertal
+10700,11400,Mutkurve
+11400,11900,Steilstrecke
+11900,12200,Caracciola-Karussell
+12200,13050,Hohe Acht
+13050,13500,Hedwigshöhe
+13500,13850,Wippermann
+13850,14200,Eschbach
+14200,14550,Brünnchen
+14550,15000,Eiskurve
+15000,15900,Pflanzgarten
+15900,16400,Stefan-Bellof-S
+16400,17100,Schwalbenschwanz
+17100,17600,Galgenkopf
+17600,19500,Döttinger Höhe
+19500,19900,Antoniusbuche
+19900,20100,Tiergarten
+20100,20638,Hohenrain
+99999,99999,EOF
