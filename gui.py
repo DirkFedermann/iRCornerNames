@@ -1,10 +1,15 @@
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 import sys
 import threading
 import irsdk	# iRacing SDK
 import time		# for sleep function
 import codecs	# for the german Umlaute (Ä,Ö,Ü) to be displayed correct
+
+# read the settings.ini
+config = {}
+exec(open("settings.conf").read(), config)
 
 
 class Communicate(QObject):
@@ -23,15 +28,21 @@ class My_Gui(QWidget):
 		btn_count = QPushButton('Connect')
 		btn_count.clicked.connect(self.start_counting)
 		self.te = QLabel()
-		self.te.setStyleSheet('font-size:40px;')
+		self.te.setStyleSheet('font-size:' + str(config['fontSize']) + 'px;')
+		
+		if config['debug'] == 1:
+			self.debug = QLabel()
+			self.debug.setStyleSheet('font-size:' + str(config['fontSize']) + 'px;')
 
 		vbox = QVBoxLayout()
 		vbox.addWidget(btn_count)
 		vbox.addWidget(self.te)
+		if config['debug'] == 1:
+			vbox.addWidget(self.debug)
 
 		self.setLayout(vbox)
 		self.setWindowTitle('iRcornerNames')
-		self.setGeometry(400, 400, 400, 400)
+		self.setGeometry(config['window_X'], config['window_Y'],config['window_Width'], config['window_Height'])
 		self.show()
 
 	def count(self, comm):
@@ -39,23 +50,19 @@ class My_Gui(QWidget):
 		IR_IsActive = ir.startup()
 		if IR_IsActive == True:
 			comm.signal.emit(0,'Connected')
-			f = codecs.open('nordschleife.txt', 'r', 'utf-8')
+			f = codecs.open(config['track'], 'r', 'utf-8')
 			corner = f.readline()
 			cBegin,cEnd,cName = corner.split(',')
 			cBegin = int(cBegin)
 			cEnd = int(cEnd)
-			while 1 == 1:
-				"""
-				rpm = str(round(ir['RPM']));
-				comm.signal.emit(0,rpm)
-				time.sleep(.1)
-				"""
+			while IR_IsActive == True:
 				lapDist = round(ir['LapDist'],0)
-	
+				
+				if config['debug'] == 1:
+					comm.signal.emit(1,str(lapDist))
 				
 				if lapDist > cBegin and lapDist < cEnd:
 					comm.signal.emit(0,cName)
-					#print(cName)
 				else:
 					corner = f.readline()
 					cBegin,cEnd,cName = corner.split(',')
@@ -63,14 +70,13 @@ class My_Gui(QWidget):
 					cEnd = int(cEnd)
 					if cName == 'EOF':
 						f.close()
-						f = codecs.open('nordschleife.txt', 'r', 'utf-8')
+						f = codecs.open(config['track'], 'r', 'utf-8')
 						corner = f.readline()
 						cBegin,cEnd,cName = corner.split(',')
 						cBegin = int(cBegin)
 						cEnd = int(cEnd)
-					#print(cName)
 					
-				time.sleep(.5)
+				time.sleep(config['update_Time'])
 		else:
 			comm.signal.emit(0,'cant connect :(')
 
@@ -79,8 +85,11 @@ class My_Gui(QWidget):
 		my_Thread.start()
 
 	def append_data(self, num, data):
-		self.te.setText(str(num) + " " + data)
+		self.te.setText(data)
+		if config['debug'] == 1 and num == 1:
+			self.debug.setText(data)
 
+			
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
 	my_gui = My_Gui()
