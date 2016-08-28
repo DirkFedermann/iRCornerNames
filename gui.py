@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
 import threading
+import os
 import irsdk	# iRacing SDK
 import time		# for sleep function
 import codecs	# for the german Umlaute (Ä,Ö,Ü) to be displayed correct
@@ -48,35 +49,48 @@ class My_Gui(QWidget):
 	def count(self, comm):
 		ir = irsdk.IRSDK()
 		IR_IsActive = ir.startup()
+		
 		if IR_IsActive == True:
-			comm.signal.emit(0,'Connected')
-			f = codecs.open(config['track'], 'r', 'utf-8')
-			corner = f.readline()
-			cBegin,cEnd,cName = corner.split(',')
-			cBegin = int(cBegin)
-			cEnd = int(cEnd)
-			while IR_IsActive == True:
-				lapDist = round(ir['LapDist'],0)
-				
-				if config['debug'] == 1:
-					comm.signal.emit(1,str(lapDist))
-				
-				if lapDist > cBegin and lapDist < cEnd:
-					comm.signal.emit(0,cName)
-				else:
-					corner = f.readline()
-					cBegin,cEnd,cName = corner.split(',')
-					cBegin = int(cBegin)
-					cEnd = int(cEnd)
-					if cName == 'EOF':
-						f.close()
-						f = codecs.open(config['track'], 'r', 'utf-8')
+			# look what track is loaded and look if there is a track-corner file for that exists
+			trackName = ir['WeekendInfo']
+			trackName = str(trackName['TrackID'])
+			trackFileName = trackName + '.txt'
+			trackFileFolderName = config['trackFolder'] + trackFileName
+			is_trackFileName_exist = False
+			is_trackFileName_exist = os.path.exists(trackFileFolderName)
+			print(is_trackFileName_exist)
+		
+			if is_trackFileName_exist == True:
+				comm.signal.emit(0,'Connected')
+				f = codecs.open(trackFileFolderName, 'r', 'utf-8')
+				corner = f.readline()
+				cBegin,cEnd,cName = corner.split(',')
+				cBegin = int(cBegin)
+				cEnd = int(cEnd)
+				while IR_IsActive == True:
+					lapDist = round(ir['LapDist'],0)
+					
+					if config['debug'] == 1:
+						comm.signal.emit(1,str(lapDist))
+					
+					if lapDist > cBegin and lapDist < cEnd:
+						comm.signal.emit(0,cName)
+					else:
 						corner = f.readline()
 						cBegin,cEnd,cName = corner.split(',')
 						cBegin = int(cBegin)
 						cEnd = int(cEnd)
-					
-				time.sleep(config['update_Time'])
+						if cName == 'EOF':
+							f.close()
+							f = codecs.open(trackFileFolderName, 'r', 'utf-8')
+							corner = f.readline()
+							cBegin,cEnd,cName = corner.split(',')
+							cBegin = int(cBegin)
+							cEnd = int(cEnd)
+						
+					time.sleep(config['update_Time'])
+			else:
+				comm.signal.emit(0,'track file ' + trackFileName + ' not found')
 		else:
 			comm.signal.emit(0,'cant connect :(')
 

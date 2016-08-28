@@ -1,0 +1,46 @@
+0,550,Start-/Finishline
+550,700,Yokohama-S
+700,1300,Mercedes-Arena
+1300,1700,Shortcut
+1700,1950,Ravenol Kurve
+1950,2200,BILSTEIN Kurve
+2200,2650,ADVAN Bogen
+2650,3150,Veedol Schikane
+3150,3700,T13
+3700,4600,Hatzenbach
+4600,5200,Hocheichen
+5200,5600,Quiddelbacherhöhe
+5600,6600,Flugplatz
+6600,6940,Schwedenkreuz
+6940,7300,Aremberg
+7300,8250,Fuchsröhre
+8250,8800,Adenauer Forst
+8800,9500,Metzgesfeld
+9500,10050,Kallenhard
+10050,10400,Miss-Hit-Miss
+10400,10800,Wehrseifen
+10800,11250,Breitscheid
+11250,11600,Exmühle
+11600,11950,Lauda Links
+11950,12600,Bergwerk
+12600,13550,Kesselchen
+13550,14000,Klostertal
+14000,14700,Mutkurve
+14700,15200,Steilstrecke
+15200,15500,Caracciola-Karussell
+15500,16350,Hohe Acht
+16350,16800,Hedwigshöhe
+16800,17150,Wippermann
+17150,17500,Eschbach,
+17500,17850,Brünnchen
+17850,18300,Eiskurve
+18300,19200,Planzgarten
+19200,19700,Stefan-Bellof-S
+19700,20400,Schwalbenschwanz
+20400,21900,Galgenkopf
+21900,23000,Döttinger Höhe
+23000,23400,Antoniusbuche
+23400,23600,Tiergarten
+23600,24000,Hohenrain
+24000,24154,Start-/Finishline
+99999,99999,EOF
