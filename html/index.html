@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRCornernames</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <style>
+        html,body {
+            background-color: #00ff00;
+            width: 790px;
+        }
+        div {
+            text-align: right;
+        }
+        span {
+            color: #000000;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: 800;
+            font-size: 48px;
+        }
+    </style>
+</head>
+<body>
+    <div hx-get="/update" hx-trigger="every 500ms">
+        <span>{{.}}</span>
+    </div>
+</body>
+</html>
