@@ -1,0 +1,15 @@
+cornername,start,end
+Start-/Finishline,0,450
+First Corner,450,980
+Snake,980,1450
+Anti-Banked Corner,1450,1660
+Dunlop,1660,2150
+Degner,2150,2650
+110R,2650,2800
+Hairpin,2800,3000
+200R,3000,3600
+Spoon Curve,3600,4100
+Backstretch,4100,4800
+130R,4800,5200
+Casio Triangle,5200,5400
+Last Curve,5400,5800
